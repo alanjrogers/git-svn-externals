@@ -75,7 +75,12 @@ def update(externals)
 		Dir.chdir(external[:local_path]) do 
 		
 			puts ">>>>>>>>>>>>>>> #{external[:local_path]} <<<<<<<<<<<<<<<"
-			puts `git svn rebase`
+      if not external[:revision].nil?
+        puts `git svn fetch #{external[:revision]}`
+      else
+        puts `git svn fetch`
+      end
+      puts `git svn rebase --local`
 			puts "\n"
 		
 		end
